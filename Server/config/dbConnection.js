@@ -1,24 +1,23 @@
 import mongoose from "mongoose";
+import dns from "dns";
 
-/**
- * @Connects to MongoDB database
- */
+// Force Node.js to use Google DNS
+dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 mongoose.set('strictQuery', false);
 
-const connectionToDB= async ()=>{
-
+const connectionToDB = async () => {
     try {
-        const{ connection}= await mongoose.connect(
-            process.env.MONGODB_URL||`mongodb://localhost:27017/my_database`
+        const { connection } = await mongoose.connect(
+            process.env.MONGODB_URL || `mongodb://localhost:27017/my_database`
         )
-    
-        if(connection){
-            console.log(`Connected to MongoDB :${connection.host}`);
+        if (connection) {
+            console.log(`Connected to MongoDB: ${connection.host}`);
         }
-
     } catch (e) {
         console.log(e);
         process.exit(1);
-    } 
+    }
 }
+
 export default connectionToDB;

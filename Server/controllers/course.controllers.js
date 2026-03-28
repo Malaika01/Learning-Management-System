@@ -19,10 +19,10 @@ export const getAllCourse = asyncHandler(async (req, res, next)=>{
         })
         
     } catch (error) {
-        return next(
-            new AppError(e.message,500)
-        )
-    }
+    return next(
+        new AppError(error.message, 500)  // ← fixed
+    )
+}
       
 });
 /**
